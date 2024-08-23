@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 const TwitchPastStreams = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [streams, setStreams] = useState([]);
-  const clientId = "ljum8l41466mhloezvbxhcqzn3er2o"; // Remove extra quotes
+  const clientId = "r2eibprkt46zvey6i5lzm9nmjz35ca"; // Your Twitch Client ID
+  const userId = "ilhep5l3qgby1hmj0nhvhcuxmgjp67"; // Replace with your actual Twitch User ID
 
   useEffect(() => {
     const token = extractAccessTokenFromUrl();
@@ -38,10 +39,10 @@ const TwitchPastStreams = () => {
   const fetchPastStreams = async (token) => {
     try {
       const response = await fetch(
-        `https://api.twitch.tv/helix/videos?user_id=YOUR_TWITCH_USER_ID&type=archive`,
+        `https://api.twitch.tv/helix/videos?user_id=${userId}&type=archive`,
         {
           headers: {
-            "Client-ID": clientId, // Use clientId directly without braces
+            "Client-ID": clientId,
             Authorization: `Bearer ${token}`,
           },
         }
