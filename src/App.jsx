@@ -3,12 +3,14 @@ import Hero from "./components/HeroCard";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import TwitchCTA from "./components/TwitchCTA";
+import FetchBroadcasts from "./components/twitch/FetchBroadcasts";
 
 function App() {
   return (
     <div className="flex flex-col min-h-screen w-full ">
       {/* <Navbar /> */}
       <TwitchCTA />
+      <FetchBroadcasts />
       <div className="flex-grow">
         <div className="flex justify-center flex-col md:flex-row md:gap-2">
           {/* <Hero
