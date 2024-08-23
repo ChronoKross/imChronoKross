@@ -1,11 +1,11 @@
 function Hero({ title, description }) {
   return (
     <div>
-      <header className="pt-20">
+      <header className=" z-10 flex  justify-center pb-8 ">
         <img
           src="https://d3h0048cs86i3g.cloudfront.net/95ff5b81-20b8-4cf2-ba4e-35a13eff2dd4.webp"
           alt="CloudFront Image"
-          className="w-full h-64 object-contain rounded-xl"
+          className="w-full h-full object-contain rounded-xl"
         />
       </header>
       <main>
