@@ -22,6 +22,7 @@ const TwitchPastStreams = () => {
 
   const redirectToTwitchAuth = () => {
     const clientId = process.env.REACT_APP_TWITCH_CLIENT_ID;
+    console.log("Hardcoded Twitch Client ID:", clientId);
     const redirectUri = "https://imchronokross.onrender.com";
     const scopes = "user:read:email";
 
