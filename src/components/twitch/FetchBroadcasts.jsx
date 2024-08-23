@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 
 const TwitchPastStreams = () => {
   const [accessToken, setAccessToken] = useState(null);
-  const [streams, setStreams] = useState([]);
+    const [streams, setStreams] = useState([]);
+    const clientId = ""ljum8l41466mhloezvbxhcqzn3er2o"";
 
   useEffect(() => {
     const token = extractAccessTokenFromUrl();
@@ -21,7 +22,7 @@ const TwitchPastStreams = () => {
   };
 
   const redirectToTwitchAuth = () => {
-    const clientId = "ljum8l41466mhloezvbxhcqzn3er2o";
+    
     console.log("Hardcoded Twitch Client ID:", clientId);
     const redirectUri = "https://imchronokross.onrender.com";
     const scopes = "user:read:email";
@@ -41,7 +42,7 @@ const TwitchPastStreams = () => {
         `https://api.twitch.tv/helix/videos?user_id=YOUR_TWITCH_USER_ID&type=archive`,
         {
           headers: {
-            "Client-ID": process.env.REACT_APP_TWITCH_CLIENT_ID,
+            "Client-ID": {clientId},
             Authorization: `Bearer ${token}`,
           },
         }
