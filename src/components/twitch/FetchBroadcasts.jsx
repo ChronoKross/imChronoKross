@@ -1,49 +1,60 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 const TwitchPastStreams = () => {
   const [accessToken, setAccessToken] = useState(null);
   const [streams, setStreams] = useState([]);
 
   useEffect(() => {
-    // Check if the access token is in the URL fragment
-    const hash = window.location.hash;
-    const params = new URLSearchParams(hash.replace("#", ""));
-    const token = params.get("access_token");
-
+    const token = extractAccessTokenFromUrl();
     if (token) {
       setAccessToken(token);
       fetchPastStreams(token);
     } else {
-      // Redirect to Twitch OAuth authorization if no token is present
       redirectToTwitchAuth();
     }
   }, []);
 
+  const extractAccessTokenFromUrl = () => {
+    const hash = window.location.hash;
+    const params = new URLSearchParams(hash.replace("#", ""));
+    return params.get("access_token");
+  };
+
   const redirectToTwitchAuth = () => {
-    const clientId = process.env.twitch; // Assuming you're using a .env file with this variable
-    const redirectUri = "https://imchronokross.onrender.com"; // Your website URL
+    const clientId = process.env.REACT_APP_TWITCH_CLIENT_ID;
+    const redirectUri = "https://imchronokross.onrender.com";
     const scopes = "user:read:email";
 
-    const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(
-      redirectUri
-    )}&response_type=token&scope=${encodeURIComponent(scopes)}`;
+    const authUrl = new URL("https://id.twitch.tv/oauth2/authorize");
+    authUrl.searchParams.append("client_id", clientId);
+    authUrl.searchParams.append("redirect_uri", redirectUri);
+    authUrl.searchParams.append("response_type", "token");
+    authUrl.searchParams.append("scope", scopes);
 
-    window.location.href = authUrl;
+    window.location.href = authUrl.toString();
   };
 
   const fetchPastStreams = async (token) => {
-    const response = await fetch(
-      `https://api.twitch.tv/helix/videos?user_id=YOUR_TWITCH_USER_ID&type=archive`,
-      {
-        headers: {
-          "Client-ID": process.env.REACT_APP_TWITCH_CLIENT_ID, // Using the environment variable
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    try {
+      const response = await fetch(
+        `https://api.twitch.tv/helix/videos?user_id=YOUR_TWITCH_USER_ID&type=archive`,
+        {
+          headers: {
+            "Client-ID": process.env.REACT_APP_TWITCH_CLIENT_ID,
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-    const data = await response.json();
-    setStreams(data.data);
+      if (!response.ok) {
+        throw new Error("Failed to fetch streams");
+      }
+
+      const data = await response.json();
+      setStreams(data.data);
+    } catch (error) {
+      console.error("Error fetching streams:", error);
+    }
   };
 
   return (
