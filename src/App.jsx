@@ -8,7 +8,7 @@ function App() {
   return (
     <div className=" flex flex-col min-h-screen w-full">
       <VortexWrapper>
-        <Hero title="Yo mamma" description="Is Noice" />
+        {/* <Hero title="Yo mamma" description="Is Noice" /> */}
         <TwitchCTA />
       </VortexWrapper>
     </div>

@@ -1,6 +1,6 @@
 function Hero({ title, description }) {
   return (
-    <div className=" mt-8 ml-5 mr-5 bg-black">
+    <div className=" bg-black">
       <header className=" z-10 flex justify-center pb-8">
         <div className="relative w-full h-full">
           <img
