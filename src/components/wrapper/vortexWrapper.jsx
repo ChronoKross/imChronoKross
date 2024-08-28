@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export function VortexWrapper({ children, ...props }) {
   return (
-    <div className=" mx-auto rounded-md h-screen overflow-hidden">
+    <div className=" w-screen mx-auto rounded-md h-screen overflow-hidden">
       <Vortex
         backgroundColor="black"
         rangeY={800}
