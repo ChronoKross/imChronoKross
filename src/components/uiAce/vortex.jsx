@@ -13,7 +13,7 @@ export const Vortex = (props) => {
   const rangeY = props.rangeY || 100;
   const baseTTL = 100;
   const rangeTTL = 200;
-  const baseSpeed = props.baseSpeed || 0.9;
+  const baseSpeed = props.baseSpeed || 0.8;
   const rangeSpeed = props.rangeSpeed || 0.1;
   const baseRadius = props.baseRadius || 3;
   const rangeRadius = props.rangeRadius || 2;
