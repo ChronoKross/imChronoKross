@@ -15,7 +15,7 @@ function App() {
       <div>
         <HeroHighlight containerClassName="custom-container-class">
           <p className=" flex text-center max-w-prose">
-            <h1 className="text-4xl font-bold text-center">
+            <h1 className=" min-h-screen text-4xl font-bold text-center">
               <TextGenerateEffect
                 words={textEffect}
                 className="text-white text-3xl tracking-wide "
