@@ -22,9 +22,12 @@ export const HeroHighlight = ({ children, className, containerClassName }) => {
       )}
       onMouseMove={handleMouseMove}
     >
-      <div className="absolute inset-0 bg-dot-thick-neutral-300 dark:bg-dot-thick-neutral-800  pointer-events-none" />
+      {/* The gray grid background */}
+      <div className="absolute inset-0 bg-dot-thick-neutral-300 dark:bg-dot-thick-neutral-800 opacity-30 transition-opacity duration-300 group-hover:opacity-100 pointer-events-none" />
+
+      {/* The red highlight effect */}
       <motion.div
-        className="pointer-events-none bg-dot-thick-red-800 dark:bg-dot-thick-red-900 absolute inset-0 opacity-0 transition duration-300 group-hover:opacity-100"
+        className="pointer-events-none bg-dot-thick-red-500 dark:bg-dot-thick-red-500 absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           WebkitMaskImage: useMotionTemplate`
             radial-gradient(
