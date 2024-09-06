@@ -11,20 +11,21 @@ import { VideoPlayer } from "./components/VideoPlayer";
 //   "Eventually this will be my digital home :).... until then, idk what it is lol. I am mainly using Material Tailwind, and Aceternty for my ui/ux styling";
 
 function App() {
-  const url = "https://youtu.be/LPs7kHIiVZ0";
+  const url = "https://www.youtube.com/watch?v=2QTDcffpunY";
   return (
     <div>
       <NavbarSimple />
       <div>
         <HeroHighlight containerClassName="custom-container-class">
           <VideoPlayer
-            url={`${url}?controls=0&modestbranding=1&rel=0&autohide=1`}
+            url={`${url}?controls=0&modestbranding=1&rel=0&autoplay=true`}
             playing={true}
-            controls={false}
+            controls={true}
             width="100%"
             height="480px"
             loop={false}
             volume={0.7}
+            muted={true}
           />
           <p className=" flex text-center max-w-prose">
             <h1 className="text-4xl font-bold text-center">

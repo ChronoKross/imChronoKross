@@ -41,11 +41,11 @@ VideoPlayer.propTypes = {
 
 // Default Props
 VideoPlayer.defaultProps = {
-  controls: true,
-  playing: false,
+  controls: false,
+  playing: true,
   loop: false,
   width: "100%",
-  height: "360px",
+  height: "50%",
   volume: 0.8,
-  muted: false,
+  muted: true,
 };
