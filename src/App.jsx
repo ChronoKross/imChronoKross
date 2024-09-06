@@ -27,16 +27,7 @@ function App() {
             volume={0.7}
             muted={true}
           />
-          <p className=" flex text-center max-w-prose">
-            <h1 className="text-4xl font-bold text-center">
-              {/* <TextGenerateEffect
-                words={textEffect}
-                className="text-white text-3xl tracking-wide "
-                filter={true} // Optional: apply the blur effect before animating
-                duration={0.8}
-              /> */}
-            </h1>
-          </p>
+          <p className=" flex text-center max-w-prose"></p>
           <p className="mt-4 text-xl text-center">
             <Highlight className="text-indigo-500">Experience</Highlight> the
             best features and{" "}
