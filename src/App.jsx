@@ -27,7 +27,7 @@ function App() {
             volume={0.7}
             muted={true}
           />
-          <p className=" flex text-center max-w-prose"></p>
+       
           <p className="mt-4 text-xl text-center">
             <Highlight className="text-indigo-500">Experience</Highlight> the
             best features and{" "}
