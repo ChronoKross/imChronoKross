@@ -25,7 +25,7 @@ function App() {
             height="480px"
             loop={false}
             volume={0.7}
-            muted={true}
+            muted={false}
           />
        
           <p className="mt-4 text-xl text-center">
