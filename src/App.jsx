@@ -33,8 +33,10 @@ function App() {
             best features and{" "}
             <Highlight className="text-purple-500">technologies</Highlight> with
             us.
+         Hey, my name is Nathan Gwyn. I go by ChronoKross, or ImChronoKross. TI Own this brand name. The site is a huge work in progress, so I'm currently not realing advertising it to the public yet. I own this domain. 
+          http://imchronokross.com. Eventually this site will have a blog, and be focused on educational conent mostly. Once the site is live, I do not give consent for web crawlers to train your A.I off of my data. 
+          If in the future you wish to do this please contact me at nathanblainegwyn.com. I am the sole owner of the brand I'm trying to achieve. Thank you!
           </p>
-          <p>Hey, my name is Nathan Gwyn. I go by ChronoKross, or ImChronoKross. TI Own this brand name. The site is a huge work in progress, so I'm currently not realing advertising it to the public yet. I own this domain. http://imchronokross.com. Eventually this site will have a blog, and be focused on educational conent mostly. Once the site is live, I do not give consent for web crawlers to train your A.I off of my data. If in the future you wish to do this please contact me at nathanblainegwyn.com. Thank you!</p>
         </HeroHighlight>
       </div>
 
