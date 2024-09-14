@@ -1,7 +1,7 @@
 // import { FeaturesSectionDemo } from "./components/FeatureSections";
 import FeaturesSectionDemo from "./components/FeaturesSectionDemo";
 import NavbarSimple from "./components/NavbarSimple";
-// import { TextGenerateEffect } from "./components/wrapper/aceternity/textGenerate";
+import { TextGenerateEffect } from "./components/wrapper/aceternity/textGenerate";
 // import { Typography } from "@material-tailwind/react";
 import { HeroHighlight, Highlight } from "./components/HeroHighlights";
 import { FeatureSection } from "./components/FeatureSection";
