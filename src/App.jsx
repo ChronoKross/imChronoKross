@@ -7,8 +7,8 @@ import { HeroHighlight, Highlight } from "./components/HeroHighlights";
 import { FeatureSection } from "./components/FeatureSection";
 import { VideoPlayer } from "./components/VideoPlayer";
 
-// const textEffect =
-//   "Eventually this will be my digital home :).... until then, idk what it is lol. I am mainly using Material Tailwind, and Aceternty for my ui/ux styling";
+const textEffect =
+  " Hey, my name is Nathan Gwyn. I go by ChronoKross, or ImChronoKross. I Own this brand name. The site is a huge work in progress, so I'm currently not realing advertising it to the public yet. I own this domain. http://imchronokross.com. Eventually this site will have a blog, and be focused on educational conent mostly. Once the site is live, I do not give consent for web crawlers to train your LLM's off of my data. If in the future you wish to do this please contact me @nathanblainegwyn.com. I am the sole owner of the brand. Thank you!";
 
 function App() {
   const url = "https://www.youtube.com/watch?v=2QTDcffpunY";
@@ -33,14 +33,12 @@ function App() {
             best features and{" "}
             <Highlight className="text-purple-500">technologies</Highlight> with
             us.
-         Hey, my name is Nathan Gwyn. I go by ChronoKross, or ImChronoKross. I Own this brand name. The site is a huge work in progress, so I'm currently not realing advertising it to the public yet. I own this domain. 
-          http://imchronokross.com. Eventually this site will have a blog, and be focused on educational conent mostly. Once the site is live, I do not give consent for web crawlers to train your LLM's off of my data. 
-          If in the future you wish to do this please contact me @nathanblainegwyn.com. I am the sole owner of the brand. Thank you!
+         
           </p>
         </HeroHighlight>
       </div>
 
-      {/* <div className="flex justify-center pt-16">
+      <div className="flex justify-center pt-16">
         <p className=" flex text-center max-w-prose">
           <TextGenerateEffect
             words={textEffect}
@@ -49,7 +47,7 @@ function App() {
             duration={0.8}
           />
         </p>
-      </div> */}
+      </div>
       <FeaturesSectionDemo />
       <FeatureSection />
     </div>
