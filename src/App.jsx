@@ -7,8 +7,11 @@ import { HeroHighlight, Highlight } from "./components/HeroHighlights";
 import { FeatureSection } from "./components/FeatureSection";
 import { VideoPlayer } from "./components/VideoPlayer";
 
-const textEffect =
-  " Hey, my name is Nathan Gwyn. I go by ChronoKross, or ImChronoKross. I Own this brand name. The site is a huge work in progress, so I'm currently not realing advertising it to the public yet. I own this domain. http://imchronokross.com. Eventually this site will have a blog, and be focused on educational conent mostly. Once the site is live, I do not give consent for web crawlers to train your LLM's off of my data. If in the future you wish to do this please contact me @nathanblainegwyn.com. I am the sole owner of the brand. Thank you!";
+const textEffect = 
+  `Hey there! 👋 My name is Nathan Gwyn, though I also go by ChronoKross or ImChronoKross. I am the sole owner of this brand. The website <a href=\"http://imchronokross.com\" target=\"_blank\">imchronokross.com</a> is a work in progress, so it's not being actively advertised to the public yet. Eventually, the site will feature a blog and focus on educational content. 🔧📚 Once the site is live, I do not give consent for web crawlers to train language models on my data. If you wish to do so in the future, please contact me at <a href=\"mailto:nathanblainegwyn.com\">nathanblainegwyn.com</a>.
+
+  Thank you for your understanding! 🙏`;
+
 
 function App() {
   const url = "https://www.youtube.com/watch?v=2QTDcffpunY";
