@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React from "react";
 import {
   Navbar,
@@ -16,12 +17,12 @@ function NavList() {
         color="white"
         className="p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/register"
           className="flex items-center hover:text-red-800 transition-colors"
         >
-          Pages
-        </a>
+          Register
+        </Link>
       </Typography>
       <Typography
         as="li"
@@ -81,7 +82,7 @@ export default function NavbarSimple() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3 bg-transparent text-white   border-none">
+    <Navbar className="mx-auto max-w-screen-xl px-6 py-3 bg-black text-white   border-none">
       <div className="flex items-center justify-between">
         <Typography
           as="a"

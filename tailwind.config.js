@@ -1,6 +1,8 @@
 import svgToDataUri from "mini-svg-data-uri";
 import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 import withMT from "@material-tailwind/react/utils/withMT";
+// import defaultTheme from "tailwindcss/defaultTheme";
+// import colors from "tailwindcss/colors";
 
 /** @type {import('tailwindcss').Config} */
 export default withMT({
@@ -11,6 +13,9 @@ export default withMT({
       fontFamily: {
         slab: ["Roboto Slab", "serif"], // For headings
         sans: ["Roboto", "sans-serif"], // For body text
+      },
+      boxShadow: {
+        input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
       },
       animation: {
         poof: "poof 0.5s forwards",
