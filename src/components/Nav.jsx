@@ -58,7 +58,7 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-          to="/home"
+          to="/"
           element={<Home />}
           className="flex items-center hover:text-red-800 transition-colors"
         >
