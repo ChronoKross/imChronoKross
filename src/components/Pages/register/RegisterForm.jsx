@@ -7,111 +7,178 @@ import {
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
-import { Axios } from "axios";
-import { useEffect } from "react";
+import axios from "axios"; // use axios for making requests
+import { useState } from "react";
+import bcrypt from "bcryptjs"; // import bcryptjs
 
 export default function RegisterForm() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form submitted");
+  // Form state
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    bio: "",
+    profilePicture: null,
+    socialLinks: "",
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
   };
 
-  useEffect(() => {}, []);
+  const handleFileChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      profilePicture: e.target.files[0], // for uploading image
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Form submitted", formData);
+
+    try {
+      const formDataToSend = new FormData(); // For file upload
+
+      // Append form data
+      formDataToSend.append(
+        "username",
+        `${formData.firstName} ${formData.lastName}`
+      );
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("password", formData.password); // Plain password
+      formDataToSend.append("bio", formData.bio);
+      if (formData.profilePicture) {
+        formDataToSend.append("profilePicture", formData.profilePicture);
+      }
+      formDataToSend.append(
+        "socialLinks",
+        JSON.stringify({ twitter: formData.socialLinks }) // Convert to JSON
+      );
+
+      // Send request to your Strapi API to register a user
+      const response = await axios.post(
+        "http://localhost:1338/api/auth/local/register", // Correct endpoint
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("User created:", response.data);
+
+      // Extract the JWT from the response
+      const { jwt, user } = response.data;
+
+      // Store the JWT in localStorage or sessionStorage
+      localStorage.setItem("token", jwt);
+
+      // Optionally, redirect the user or update the UI
+      // For example, navigate to the dashboard:
+      // window.location.href = "/dashboard";
+    } catch (error) {
+      console.error(
+        "Error creating user:",
+        error.response?.data || error.message
+      );
+      // Optionally, display error messages to the user
+    }
+  };
+
   return (
-    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 lg:mt-16 md:p-8 shadow-input  dark:bg-black">
+    <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 lg:mt-16 md:p-8 shadow-input dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to Chrono's Kross
-        <span className="text-red-300 font-extrabold inner-shadow-text">
-          {"         "}
-          <i className=" text-s ">/login</i>
-        </span>
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
         Register so you can like... do things.
       </p>
       <form className="my-8" onSubmit={handleSubmit}>
+        {/* Name Fields */}
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Label htmlFor="firstName">First name</Label>
+            <Input
+              id="firstName"
+              placeholder="Tyler"
+              type="text"
+              onChange={handleChange}
+            />
           </LabelInputContainer>
           <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Label htmlFor="lastName">Last name</Label>
+            <Input
+              id="lastName"
+              placeholder="Durden"
+              type="text"
+              onChange={handleChange}
+            />
           </LabelInputContainer>
         </div>
+
+        {/* Email Field */}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input
+            id="email"
+            placeholder="projectmayhem@fc.com"
+            type="email"
+            onChange={handleChange}
+          />
         </LabelInputContainer>
+
+        {/* Password Field */}
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
-        </LabelInputContainer>
-        {/* <LabelInputContainer className="mb-8">
-          <Label htmlFor="twitterpassword">Your twitter password</Label>
           <Input
-            id="twitterpassword"
+            id="password"
             placeholder="••••••••"
-            type="twitterpassword"
+            type="password"
+            onChange={handleChange}
           />
-        </LabelInputContainer> */}
+        </LabelInputContainer>
 
-        <button
-          className="mt-8 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-          type="submit"
-        >
+        {/* Bio Field */}
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="bio">Bio</Label>
+          <Input
+            id="bio"
+            placeholder="A brief bio..."
+            type="text"
+            onChange={handleChange}
+          />
+        </LabelInputContainer>
+
+        {/* Social Links Field */}
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="socialLinks">Social Links</Label>
+          <Input
+            id="socialLinks"
+            placeholder="Add your social media URLs here..."
+            type="text"
+            onChange={handleChange}
+          />
+        </LabelInputContainer>
+
+        {/* Profile Picture Upload */}
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="profilePicture">Profile Picture</Label>
+          <Input id="profilePicture" type="file" onChange={handleFileChange} />
+        </LabelInputContainer>
+
+        <button className="mt-8 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]">
           Sign up &rarr;
-          <BottomGradient />
         </button>
-
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[1px] w-full" />
-
-        <div className="flex flex-col space-y-4">
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-white rounded-md h-10 font-medium shadow-input bg-gray-900 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGithub className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              GitHub
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-white rounded-md h-10 font-medium shadow-input bg-gray-900 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandGoogle className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              Google
-            </span>
-            <BottomGradient />
-          </button>
-          <button
-            className=" relative group/btn flex space-x-2 items-center justify-start px-4 w-full text-white rounded-md h-10 font-medium shadow-input bg-gray-900 dark:bg-zinc-900 dark:shadow-[0px_0px_1px_1px_var(--neutral-800)]"
-            type="submit"
-          >
-            <IconBrandOnlyfans className="h-4 w-4 text-neutral-800 dark:text-neutral-300" />
-            <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-              OnlyFans
-            </span>
-            <BottomGradient />
-          </button>
-        </div>
       </form>
     </div>
   );
 }
-
-const BottomGradient = () => {
-  return (
-    <>
-      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
-      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
-    </>
-  );
-};
 
 const LabelInputContainer = ({ children, className }) => {
   return (
@@ -121,7 +188,6 @@ const LabelInputContainer = ({ children, className }) => {
   );
 };
 
-//add prop validation
 LabelInputContainer.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
