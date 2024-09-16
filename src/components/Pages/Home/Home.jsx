@@ -9,7 +9,7 @@ const url = "https://www.youtube.com/watch?v=2QTDcffpunY";
 export default function Home() {
   return (
     <main>
-      <HeroHighlight containerClassName="custom-container-class">
+      <HeroHighlight containerClassName="custom-container-class pt-32">
         <VideoPlayer
           url={`${url}?controls=0&modestbranding=1&rel=0&autoplay=true`}
           playing={true}
