@@ -1,24 +1,29 @@
 import PropTypes from "prop-types";
-import { Label } from "../register/Label";
-import { Input } from "../register/Input";
+import { Label } from "./Label";
+import { Input } from "./Input";
 import { cn } from "@/lib/utils";
 import {
   IconBrandGithub,
   IconBrandGoogle,
   IconBrandOnlyfans,
 } from "@tabler/icons-react";
+import { Axios } from "axios";
+import { useEffect } from "react";
 
-export function RegisterForm() {
+export default function RegisterForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted");
   };
+
+  useEffect(() => {}, []);
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 lg:mt-16 md:p-8 shadow-input  dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-        Welcome to Chrono's
-        <span className="text-red-600 font-extrabold inner-shadow-text">
-          Kross
+        Welcome to Chrono's Kross
+        <span className="text-red-300 font-extrabold inner-shadow-text">
+          {"         "}
+          <i className=" text-s ">/login</i>
         </span>
       </h2>
       <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
@@ -43,24 +48,24 @@ export function RegisterForm() {
           <Label htmlFor="password">Password</Label>
           <Input id="password" placeholder="••••••••" type="password" />
         </LabelInputContainer>
-        <LabelInputContainer className="mb-8">
+        {/* <LabelInputContainer className="mb-8">
           <Label htmlFor="twitterpassword">Your twitter password</Label>
           <Input
             id="twitterpassword"
             placeholder="••••••••"
             type="twitterpassword"
           />
-        </LabelInputContainer>
+        </LabelInputContainer> */}
 
         <button
-          className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
+          className="mt-8 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
         >
           Sign up &rarr;
           <BottomGradient />
         </button>
 
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
+        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-4 h-[1px] w-full" />
 
         <div className="flex flex-col space-y-4">
           <button

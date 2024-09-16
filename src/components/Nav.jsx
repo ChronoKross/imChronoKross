@@ -7,6 +7,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Home from "./Pages/Home/Home";
 
 function NavList() {
   return (
@@ -56,18 +57,19 @@ function NavList() {
         color="white"
         className="p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/home"
+          element={<Home />}
           className="flex items-center hover:text-red-800 transition-colors"
         >
-          Docs
-        </a>
+          Home
+        </Link>
       </Typography>
     </ul>
   );
 }
 
-export default function NavbarSimple() {
+export default function Nav() {
   const [openNav, setOpenNav] = React.useState(false);
 
   const handleWindowResize = () =>
@@ -91,7 +93,7 @@ export default function NavbarSimple() {
           className="cursor-pointer py-1.5 text-white"
         >
           Chrono
-          <span className="text-red-600 font-extrabold inner-shadow-text">
+          <span className="text-syan-600 font-extrabold inner-shadow-text">
             Kross
           </span>
         </Typography>
