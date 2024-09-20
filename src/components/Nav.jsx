@@ -31,12 +31,12 @@ function NavList() {
         color="white"
         className="p-1 font-medium"
       >
-        <a
-          href="#"
+        <Link
+          to="/login"
           className="flex items-center hover:text-red-800 transition-colors"
         >
-          Account
-        </a>
+          Login
+        </Link>
       </Typography>
       <Typography
         as="li"
