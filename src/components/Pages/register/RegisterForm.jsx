@@ -63,7 +63,7 @@ export default function RegisterForm() {
 
       // Send request to your Strapi API to register a user
       const response = await axios.post(
-        "http://localhost:1338/api/auth/local/register", // Correct endpoint
+        "https://api.imchronokross.com/api/auth/local/register", // Correct endpoint
         formDataToSend,
         {
           headers: {
