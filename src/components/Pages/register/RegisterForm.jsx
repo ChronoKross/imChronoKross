@@ -77,7 +77,7 @@ export default function RegisterForm() {
       const { jwt, user } = response.data;
 
       // Store the JWT in localStorage or sessionStorage
-      localStorage.setItem("token", jwt);
+      // localStorage.setItem("token", jwt);
 
       // Optionally, redirect the user or update the UI
       // For example, navigate to the dashboard:
