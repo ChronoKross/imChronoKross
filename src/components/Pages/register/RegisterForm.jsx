@@ -69,6 +69,7 @@ export default function RegisterForm() {
           headers: {
             "Content-Type": "multipart/form-data",
           },
+          withCredentials: true,
         }
       );
       console.log("User created:", response.data);

@@ -36,6 +36,7 @@ export default function LoginForm() {
           headers: {
             "Content-Type": "application/json",
           },
+          withCredentials: true,
         }
       );
       console.log("User logged in:", response.data);
