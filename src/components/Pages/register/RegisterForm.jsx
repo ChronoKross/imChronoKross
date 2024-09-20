@@ -74,7 +74,7 @@ export default function RegisterForm() {
       console.log("User created:", response.data);
 
       // Extract the JWT from the response
-      const { jwt, user } = response.data;
+      // const { jwt, user } = response.data;
 
       // Store the JWT in localStorage or sessionStorage
       // localStorage.setItem("token", jwt);

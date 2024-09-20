@@ -41,11 +41,11 @@ export default function LoginForm() {
       console.log("User logged in:", response.data);
 
       // Extract the JWT from the response
-      const { jwt } = response.data;
+      // const { jwt } = response.data;
 
       // Store the JWT in localStorage or sessionStorage
 
-      localStorage.setItem("jwt", jwt);
+      // localStorage.setItem("jwt", jwt);
 
       // Optionally, redirect the user or update the UI
       // For example, navigate to the dashboard:
