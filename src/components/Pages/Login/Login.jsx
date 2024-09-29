@@ -27,7 +27,7 @@ export default function LoginForm() {
     try {
       // Send request to your Strapi API to login a user
       const response = await axios.post(
-        "https://api.imchronokross.com/auth/local", // Correct endpoint
+        "https://api.imchronokross.com/api/auth/local", // Correct endpoint
         {
           identifier: formData.email,
           password: formData.password,
