@@ -2,23 +2,29 @@ import PropTypes from "prop-types";
 import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "@/lib/utils";
-import axios from "axios"; // use axios for making requests
+import axios from "axios";
 import { useState } from "react";
 
 export default function RegisterForm() {
+  // Dynamically set the API URL based on environment
+  const API_URL =
+    window.location.hostname === "localhost"
+      ? "http://localhost:1338/api/register"
+      : "https://api.imchronokross.com/api/register";
+
   // Form state
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    username: "",
     email: "",
     password: "",
-    bio: "",
+    bio: "Optional",
     profilePicture: null,
-    socialLinks: "",
+    socialLinks: "Optional",
   });
 
-  const [errorMessage, setErrorMessage] = useState(""); // For displaying errors
-  const [successMessage, setSuccessMessage] = useState(""); // For displaying success
+  const [preview, setPreview] = useState(null); // State to store the preview URL
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -29,60 +35,53 @@ export default function RegisterForm() {
   };
 
   const handleFileChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      profilePicture: e.target.files[0], // for uploading image
-    }));
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevState) => ({
+        ...prevState,
+        profilePicture: file, // Store the image file
+      }));
+      setPreview(URL.createObjectURL(file)); // Generate preview URL
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
     setSuccessMessage("");
-    console.log("Form submitted", formData);
 
     try {
-      const formDataToSend = new FormData(); // For file upload
-
-      // Append form data
-      formDataToSend.append(
-        "username",
-        `${formData.firstName} ${formData.lastName}`
-      );
+      const formDataToSend = new FormData();
+      formDataToSend.append("username", formData.username);
       formDataToSend.append("email", formData.email);
-      formDataToSend.append("password", formData.password); // Plain password
+      formDataToSend.append("password", formData.password);
       formDataToSend.append("bio", formData.bio);
       if (formData.profilePicture) {
         formDataToSend.append("profilePicture", formData.profilePicture);
       }
       formDataToSend.append(
         "socialLinks",
-        JSON.stringify({ twitter: formData.socialLinks }) // Convert to JSON
+        JSON.stringify({ twitter: formData.socialLinks })
       );
 
-      // Send request to your Strapi API to register a user
-      const response = await axios.post(
-        "https://api.imchronokross.com/api/register", // Correct endpoint
-        formDataToSend,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios.post(API_URL, formDataToSend, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      });
       console.log("User created:", response.data);
       setSuccessMessage("Registration successful! You can now log in.");
 
-      // Optionally, redirect the user or update the UI
-      // For example, navigate to the dashboard:
-      // window.location.href = "/dashboard";
+      // Store necessary info in localStorage
+      localStorage.setItem("userId", response.data.user.id);
+      localStorage.setItem("username", response.data.user.username);
+      localStorage.setItem("profilePicture", response.data.user.profilePicture);
     } catch (error) {
       console.error(
         "Error creating user:",
         error.response?.data || error.message
       );
-      // Display error messages to the user
       setErrorMessage(
         error.response?.data?.message || "An unexpected error occurred."
       );
@@ -94,37 +93,24 @@ export default function RegisterForm() {
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
         Welcome to Chrono's Kross
       </h2>
-      <p className="text-neutral-600 text-sm max-w-sm mt-2 ">
+      <p className="text-neutral-600 text-sm max-w-sm mt-2">
         Register so you can like... do things.
       </p>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       {successMessage && <p className="text-green-500">{successMessage}</p>}
       <form className="my-8" onSubmit={handleSubmit}>
-        {/* Name Fields */}
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstName">First name</Label>
-            <Input
-              id="firstName"
-              placeholder="Tyler"
-              type="text"
-              className=" text-white"
-              onChange={handleChange}
-              required
-            />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastName">Last name</Label>
-            <Input
-              id="lastName"
-              placeholder="Durden"
-              type="text"
-              className=" text-white"
-              onChange={handleChange}
-              required
-            />
-          </LabelInputContainer>
-        </div>
+        {/* Username Field */}
+        <LabelInputContainer className="mb-4">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            placeholder="Your username"
+            type="text"
+            className=" text-white"
+            onChange={handleChange}
+            required
+          />
+        </LabelInputContainer>
 
         {/* Email Field */}
         <LabelInputContainer className="mb-4">
@@ -157,7 +143,7 @@ export default function RegisterForm() {
           <Label htmlFor="bio">Bio</Label>
           <Input
             id="bio"
-            placeholder="A brief bio..."
+            placeholder="Optional"
             type="text"
             className=" text-white"
             onChange={handleChange}
@@ -169,7 +155,7 @@ export default function RegisterForm() {
           <Label htmlFor="socialLinks">Social Links</Label>
           <Input
             id="socialLinks"
-            placeholder="Add your Twitter URL here..."
+            placeholder="Optional"
             type="text"
             className=" text-white"
             onChange={handleChange}
@@ -185,6 +171,16 @@ export default function RegisterForm() {
             accept="image/*"
             onChange={handleFileChange}
           />
+          {/* Center the image preview */}
+          {preview && (
+            <div className="flex justify-center mt-2">
+              <img
+                src={preview}
+                alt="Profile Preview"
+                className="w-24 h-24 object-cover rounded-full"
+              />
+            </div>
+          )}
         </LabelInputContainer>
 
         <button className="mt-8 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]">
