@@ -70,13 +70,23 @@ export default function RegisterForm() {
         },
         withCredentials: true,
       });
+
       console.log("User created:", response.data);
       setSuccessMessage("Registration successful! You can now log in.");
 
-      // Store necessary info in localStorage
-      localStorage.setItem("userId", response.data.user.id);
-      localStorage.setItem("username", response.data.user.username);
-      localStorage.setItem("profilePicture", response.data.user.profilePicture);
+      // Ensure the profile picture URL is correctly returned by the backend
+      const { id, username, email, profilePicture } = response.data.user;
+
+      // Store the entire user object in localStorage as a single object
+      const user = {
+        id,
+        username,
+        email,
+        profilePicture: profilePicture || "", // Ensure profilePicture is not null
+      };
+
+      // Save the user object as a single entry in localStorage
+      localStorage.setItem("user", JSON.stringify(user));
     } catch (error) {
       console.error(
         "Error creating user:",
