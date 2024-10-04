@@ -7,9 +7,27 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import Home from "./Pages/Home/Home";
+import { useEffect, useState } from "react";
+import { useUser } from "../context/UserContext";
 
 function NavList() {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { userTest } = useUser();
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    console.log("Stored user from localStorage:", storedUser); // Log for debugging
+
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      console.log("User set in context:", JSON.parse(storedUser)); // Check if user is set
+    }
+    setLoading(false);
+  }, []); // Access user from UserContext
+
+  console.log("User from context:", userTest); // Debugging
+
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
       <Typography
@@ -19,52 +37,89 @@ function NavList() {
         className="p-1 font-medium"
       >
         <Link
-          to="/register"
-          className="flex items-center hover:text-red-800 transition-colors"
-        >
-          Register
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <Link
-          to="/login"
-          className="flex items-center hover:text-red-800 transition-colors"
-        >
-          Login
-        </Link>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <a
-          href="#"
-          className="flex items-center hover:text-red-800 transition-colors"
-        >
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <Link
           to="/"
-          element={<Home />}
           className="flex items-center hover:text-red-800 transition-colors"
         >
           Home
         </Link>
       </Typography>
+
+      {user ? (
+        <>
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-medium"
+          >
+            <Link
+              to="/blog"
+              className="flex items-center hover:text-red-800 transition-colors"
+            >
+              Blog
+            </Link>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-medium"
+          >
+            <Link
+              to="/logout"
+              className="flex items-center hover:text-red-800 transition-colors"
+            >
+              Logout
+            </Link>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-medium"
+          >
+            <Link
+              to="/profile"
+              className="flex items-center hover:text-red-800 transition-colors"
+            >
+              <img
+                src={user.profilePicture || "/default-profile.png"} // Fallback to a default image
+                alt="User"
+                className="w-8 h-8 rounded-full"
+              />
+            </Link>
+          </Typography>
+        </>
+      ) : (
+        <>
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-medium"
+          >
+            <Link
+              to="/register"
+              className="flex items-center hover:text-red-800 transition-colors"
+            >
+              Register
+            </Link>
+          </Typography>
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-medium"
+          >
+            <Link
+              to="/login"
+              className="flex items-center hover:text-red-800 transition-colors"
+            >
+              Login
+            </Link>
+          </Typography>
+        </>
+      )}
     </ul>
   );
 }
@@ -84,7 +139,7 @@ export default function Nav() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-6 py-3 bg-black text-white   border-none">
+    <Navbar className="mx-auto max-w-screen-xl px-6 py-3 bg-black text-white border-none">
       <div className="flex items-center justify-between">
         <Typography
           as="a"
@@ -93,7 +148,7 @@ export default function Nav() {
           className="cursor-pointer py-1.5 text-white"
         >
           Chrono
-          <span className="text-syan-600 font-extrabold inner-shadow-text">
+          <span className="text-cyan-600 font-extrabold inner-shadow-text">
             Kross
           </span>
         </Typography>
