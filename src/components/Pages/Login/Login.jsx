@@ -128,6 +128,7 @@ export default function LoginForm() {
             <Input
               id="password"
               placeholder="••••••••"
+              onChange={handleChange}
               type={isPasswordVisible ? "text" : "password"} // Conditionally change type
               className="text-white pr-10" // Padding to give space for the eye icon
             />

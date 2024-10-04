@@ -8,13 +8,10 @@ import {
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
-import { useUser } from "../context/UserContext";
 
 function NavList() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { userTest } = useUser();
-
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     console.log("Stored user from localStorage:", storedUser); // Log for debugging
@@ -26,7 +23,7 @@ function NavList() {
     setLoading(false);
   }, []); // Access user from UserContext
 
-  console.log("User from context:", userTest); // Debugging
+  console.log("User from context:", user); // Debugging
 
   return (
     <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
