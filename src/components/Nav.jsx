@@ -7,117 +7,53 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
 
 function NavList() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const storedUser = localStorage.getItem("user");
-    console.log("Stored user from localStorage:", storedUser); // Log for debugging
-
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-      console.log("User set in context:", JSON.parse(storedUser)); // Check if user is set
-    }
-    setLoading(false);
-  }, []); // Access user from UserContext
-
-  console.log("User from context:", user); // Debugging
-
   return (
-    <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="white"
-        className="p-1 font-medium"
-      >
-        <Link
-          to="/"
-          className="flex items-center hover:text-red-800 transition-colors"
+    <>
+      <ul className="my-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className="p-1 font-medium"
         >
-          Home
-        </Link>
-      </Typography>
+          <Link
+            to="/"
+            className="flex items-center hover:text-red-800 transition-colors"
+          >
+            Home
+          </Link>
+        </Typography>
 
-      {user ? (
-        <>
-          <Typography
-            as="li"
-            variant="small"
-            color="white"
-            className="p-1 font-medium"
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className="p-1 font-medium"
+        >
+          <Link
+            to="/register"
+            className="flex items-center hover:text-red-800 transition-colors"
           >
-            <Link
-              to="/blog"
-              className="flex items-center hover:text-red-800 transition-colors"
-            >
-              Blog
-            </Link>
-          </Typography>
-          <Typography
-            as="li"
-            variant="small"
-            color="white"
-            className="p-1 font-medium"
+            Register
+          </Link>
+        </Typography>
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className="p-1 font-medium"
+        >
+          <Link
+            to="/login"
+            className="flex items-center hover:text-red-800 transition-colors"
           >
-            <Link
-              to="/logout"
-              className="flex items-center hover:text-red-800 transition-colors"
-            >
-              Logout
-            </Link>
-          </Typography>
-          <Typography
-            as="li"
-            variant="small"
-            color="white"
-            className="p-1 font-medium"
-          >
-            <Link
-              to="/profile"
-              className="flex items-center hover:text-red-800 transition-colors"
-            >
-              <img
-                src={user.profilePicture || "/default-profile.png"} // Fallback to a default image
-                alt="User"
-                className="w-8 h-8 rounded-full"
-              />
-            </Link>
-          </Typography>
-        </>
-      ) : (
-        <>
-          <Typography
-            as="li"
-            variant="small"
-            color="white"
-            className="p-1 font-medium"
-          >
-            <Link
-              to="/register"
-              className="flex items-center hover:text-red-800 transition-colors"
-            >
-              Register
-            </Link>
-          </Typography>
-          <Typography
-            as="li"
-            variant="small"
-            color="white"
-            className="p-1 font-medium"
-          >
-            <Link
-              to="/login"
-              className="flex items-center hover:text-red-800 transition-colors"
-            >
-              Login
-            </Link>
-          </Typography>
-        </>
-      )}
-    </ul>
+            Login
+          </Link>
+        </Typography>
+      </ul>
+    </>
   );
 }
 

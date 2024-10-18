@@ -5,12 +5,15 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 // import { Typography } from "@material-tailwind/react";
 // import { HeroHighlight } from "./components/HeroHighlights";
 // import { FeatureSection } from "./components/FeatureSection";
-
+import { AuthContext } from "./context/AuthContext";
+import { useContext } from "react";
 import RegisterForm from "./components/Pages/register/RegisterForm";
 import Home from "./components/Pages/Home/Home";
 import LoginForm from "./components/Pages/Login/Login";
 
 function App() {
+  const { user } = useContext(AuthContext);
+  console.log("User from context in App component:", user);
   return (
     <Router>
       <div className=" ">

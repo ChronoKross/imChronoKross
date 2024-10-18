@@ -2,12 +2,14 @@ import PropTypes from "prop-types";
 import { Label } from "./Label";
 import { Input } from "./Input";
 import { cn } from "@/lib/utils";
-import axios from "axios"; // use axios for making requests
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import axios from "axios";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthContext"; // Import AuthContext
 
 export default function LoginForm() {
   const navigate = useNavigate(); // Initialize navigate hook for redirection
+  const { setUser } = useContext(AuthContext); // Get setUser from AuthContext to update user state
 
   // Dynamically set the API URL based on environment
   const API_URL =
@@ -24,14 +26,14 @@ export default function LoginForm() {
   const [errorMessage, setErrorMessage] = useState(""); // For displaying errors
   const [successMessage, setSuccessMessage] = useState(""); // For displaying success messages
   const [isLoading, setIsLoading] = useState(false); // Loading state to prevent double submissions
-
   const [isPasswordVisible, setIsPasswordVisible] = useState(false); // State to track password visibility
 
-  // Function to toggle the visibility
+  // Function to toggle the visibility of the password field
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prevState) => !prevState);
   };
 
+  // Update form state on input change
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevState) => ({
@@ -40,6 +42,7 @@ export default function LoginForm() {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage(""); // Clear previous errors
@@ -62,25 +65,24 @@ export default function LoginForm() {
         }
       );
 
-      // If the response is successful, save the user data and navigate to home
-      const { id, username, email, profilePicture } = response.data.user;
+      // If the response is successful, set the user context and navigate to the home page
+      if (response.status === 200) {
+        console.log("Login successful:", response.data);
 
-      const user = {
-        id,
-        username,
-        email,
-        profilePicture: profilePicture || "", // Ensure profilePicture is not null
-      };
+        // Extract user data from response payload
+        const user = response.data.user;
 
-      localStorage.setItem("user", JSON.stringify(user)); // Store user object in localStorage
+        // Set the user in context to keep track of the logged-in user state
+        setUser(user);
 
-      setSuccessMessage(
-        `Welcome back, ${username}! Redirecting you to /home...`
-      );
-      setIsLoading(false); // Stop loading
+        setSuccessMessage(
+          `Welcome back, ${user.username}! Redirecting you to /home...`
+        );
+        setIsLoading(false); // Stop loading
 
-      // Redirect to home page after a slight delay
-      setTimeout(() => navigate("/"), 2000);
+        // Redirect to home page after a slight delay
+        setTimeout(() => navigate("/"), 2000);
+      }
     } catch (error) {
       // If login fails, display the error and stay on the login page
       console.error("Error logging in:", error.response?.data || error.message);
@@ -114,7 +116,7 @@ export default function LoginForm() {
             id="email"
             placeholder="projectmayhem@fc.com"
             type="email"
-            className=" text-white"
+            className="text-white"
             onChange={handleChange}
             required
             disabled={isLoading} // Disable input during loading
@@ -131,6 +133,7 @@ export default function LoginForm() {
               onChange={handleChange}
               type={isPasswordVisible ? "text" : "password"} // Conditionally change type
               className="text-white pr-10" // Padding to give space for the eye icon
+              disabled={isLoading} // Disable input during loading
             />
             {/* Eye Icon */}
             <span
@@ -155,6 +158,7 @@ export default function LoginForm() {
   );
 }
 
+// LabelInputContainer component for consistency
 const LabelInputContainer = ({ children, className }) => {
   return (
     <div className={cn("flex flex-col space-y-2 w-full", className)}>
