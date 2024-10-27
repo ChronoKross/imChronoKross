@@ -1,9 +1,14 @@
 // import { VideoPlayer } from "../../VideoPlayer";
 import { HeroHighlight, Highlight } from "../../HeroHighlights";
+// import useState from "react";
+import useAuth from "../../../context/useAuth";
 
 // const url = "https://www.youtube.com/watch?v=2QTDcffpunY";
 
 export default function Home() {
+  const { user, setUser } = useAuth();
+  // Get user from AuthContext
+  if (user) console.log(user);
   return (
     <main>
       <HeroHighlight containerClassName="custom-container-class pt-32">

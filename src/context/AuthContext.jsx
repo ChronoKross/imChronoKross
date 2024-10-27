@@ -21,8 +21,10 @@ const AuthProvider = ({ children }) => {
         if (response.status === 200) {
           console.log("User authenticated successfully:", response.data.user);
           setUser(response.data.user);
+          localStorage.setItem("authenticated", true); // Store user in local storage
         } else {
           console.log("User is not authenticated.");
+          localStorage.setItem("authenticated", false);
           setUser(null);
         }
       } catch (error) {
@@ -35,9 +37,9 @@ const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>; // Display a loading screen until the check completes
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>; // Display a loading screen until the check completes
+  // }
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -46,8 +48,8 @@ const AuthProvider = ({ children }) => {
   );
 };
 
-export { AuthContext, AuthProvider };
-
 AuthProvider.propTypes = {
   children: propTypes.node.isRequired,
 };
+
+export { AuthContext, AuthProvider };
