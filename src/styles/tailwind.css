@@ -2,6 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* index.css */
+/* Styling for TipTop Canvas ONLY */
+.ProseMirror h1 {
+  @apply text-3xl font-bold mb-4;
+}
+
+.ProseMirror h2 {
+  @apply text-2xl font-semibold mb-3;
+}
+
+.ProseMirror ul {
+  @apply list-disc list-outside ml-6 mb-4;
+}
+
+.ProseMirror li {
+  @apply mb-2;
+}
+
+.ProseMirror img {
+  @apply max-w-full h-auto mt-4 mb-4;
+}
+
+.ProseMirror p {
+  @apply mb-4;
+}
+
+.ProseMirror blockquote {
+  @apply border-l-4 border-gray-300 pl-4 italic text-gray-600 mb-4;
+}
+
+.ProseMirror a {
+  @apply text-blue-600 hover:underline;
+}
+
+.ProseMirror strong {
+  @apply font-bold;
+}
+
+.ProseMirror em {
+  @apply italic;
+}
+/* */
+
 @font-face {
   font-family: "Open Sans";
   src: url("../assets/fonts/OpenSans-Regular.ttf") format("truetype");
