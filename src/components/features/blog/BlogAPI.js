@@ -7,6 +7,7 @@ const BASE_URL =
     ? "https://api.imchronokross.com/api"
     : "http://localhost:1338/api";
 
+console.log("Current hostname:", window.location.hostname);
 console.log("BASE_URL is set to:", BASE_URL);
 
 export const getAllPosts = (limit = 10) => {
@@ -25,8 +26,6 @@ export const getPostById = (id) => {
 
 export const createPost = async (postData) => {
   console.log("Creating post with BASE_URL:", BASE_URL);
-  if (BASE_URL) console.log(BASE_URL);
-  else console.log("BASE_URL not set");
   const response = await fetch(`${BASE_URL}/blog-posts`, {
     method: "POST",
     headers: {
