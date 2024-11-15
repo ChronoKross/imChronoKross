@@ -6,7 +6,7 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [limit, setLimit] = useState(40); // Variable to specify how many posts to fetch
+  const [limit, setLimit] = useState(15); // Variable to specify how many posts to fetch
 
   useEffect(() => {
     const fetchPosts = async () => {

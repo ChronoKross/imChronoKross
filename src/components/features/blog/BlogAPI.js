@@ -1,7 +1,11 @@
 // BlogApi.js
 import axios from "axios";
 
-const BASE_URL = "http://localhost:1338/api";
+// Dynamically set the BASE_URL based on the current domain
+const BASE_URL =
+  window.location.hostname === "imchronokross.com"
+    ? "https://api.imchronokross.com/api"
+    : "http://localhost:1338/api";
 
 export const getAllPosts = (limit = 10) => {
   return axios.get(`${BASE_URL}/blog-posts?pagination[limit]=${limit}`, {
