@@ -20,6 +20,8 @@ export const getPostById = (id) => {
 };
 
 export const createPost = async (postData) => {
+  if (BASE_URL) console.log(BASE_URL);
+  else console.log("BASE_URL not set");
   const response = await fetch(`${BASE_URL}/blog-posts`, {
     method: "POST",
     headers: {
