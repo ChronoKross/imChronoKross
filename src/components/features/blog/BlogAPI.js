@@ -31,7 +31,7 @@ export const createPost = async (postData) => {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include", // Ensures cookies are included
+    withCredentials: true, // Ensures cookies are included
     body: JSON.stringify(postData),
   });
 
