@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Dynamically set the BASE_URL based on the current domain
 const BASE_URL =
-  window.location.hostname === "imchronokross.com"
+  window.location.hostname === "www.imchronokross.com"
     ? "https://api.imchronokross.com/api"
     : "http://localhost:1338/api";
 
