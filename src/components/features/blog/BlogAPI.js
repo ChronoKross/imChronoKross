@@ -7,19 +7,24 @@ const BASE_URL =
     ? "https://api.imchronokross.com/api"
     : "http://localhost:1338/api";
 
+console.log("BASE_URL is set to:", BASE_URL);
+
 export const getAllPosts = (limit = 10) => {
+  console.log("Fetching all posts with BASE_URL:", BASE_URL);
   return axios.get(`${BASE_URL}/blog-posts?pagination[limit]=${limit}`, {
     withCredentials: true, // Ensures cookies are included
   });
 };
 
 export const getPostById = (id) => {
+  console.log("Fetching post by ID with BASE_URL:", BASE_URL);
   return axios.get(`${BASE_URL}/blog-posts/${id}`, {
     withCredentials: true, // Ensures cookies are included
   });
 };
 
 export const createPost = async (postData) => {
+  console.log("Creating post with BASE_URL:", BASE_URL);
   if (BASE_URL) console.log(BASE_URL);
   else console.log("BASE_URL not set");
   const response = await fetch(`${BASE_URL}/blog-posts`, {
