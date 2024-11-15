@@ -4,8 +4,8 @@ import axios from "axios";
 // Dynamically set the BASE_URL based on the current domain
 const BASE_URL =
   window.location.hostname === "localhost"
-    ? "http://localhost:1338/api/register"
-    : "https://api.imchronokross.com/api/register";
+    ? "http://localhost:1338"
+    : "https://api.imchronokross.com";
 
 console.log("Current hostname:", window.location.hostname);
 console.log("BASE_URL is set to:", BASE_URL);
