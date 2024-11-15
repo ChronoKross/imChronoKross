@@ -1,18 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { getAllPosts } from "../BlogAPI";
+import PostCard from "../components/PostCard";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [limit, setLimit] = useState(10); // Variable to specify how many posts to fetch
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await getAllPosts();
-        if (response && response.data && Array.isArray(response.data)) {
-          setPosts(response.data); // Assuming `response.data` contains the posts array
+        const response = await getAllPosts(limit);
+        if (response && response.data && response.data.data) {
+          setPosts(response.data.data); // Assuming `response.data.data` contains the posts array
         } else {
           setError("Unexpected response structure");
         }
@@ -24,7 +25,7 @@ const Posts = () => {
     };
 
     fetchPosts();
-  }, []);
+  }, [limit]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
@@ -32,12 +33,7 @@ const Posts = () => {
   return (
     <div className="posts-list">
       {posts.map((post) => (
-        <div key={post.id} className="post-item">
-          <Link to={`/blog/${post.id}`} state={{ post }}>
-            <h2>{post.attributes.title}</h2>
-            <p>{post.attributes.excerpt}</p>
-          </Link>
-        </div>
+        <PostCard key={post.id} post={post} />
       ))}
     </div>
   );
