@@ -63,3 +63,14 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   color: #e10000;
 }
+
+.droppable-section {
+  min-height: 200px;
+  border: 2px dashed #ccc;
+  padding: 16px;
+  background-color: #f9f9f9;
+}
+
+.droppable-section.is-over {
+  background-color: #e0e0e0;
+}
