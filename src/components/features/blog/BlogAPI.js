@@ -26,21 +26,21 @@ export const getPostById = (id) => {
 
 export const createPost = async (postData) => {
   console.log("Creating post with BASE_URL:", BASE_URL);
-  const response = await fetch(`${BASE_URL}/blog-posts`, {
-    method: "POST",
-    // headers: {
-    //   "Content-Type": "application/json",
-    // },
-    withCredentials: true, // Ensures cookies are included
-    body: JSON.stringify(postData),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to create post");
+  try {
+    const response = await axios.post(`${BASE_URL}/blog-posts`, postData, {
+      withCredentials: true, // Ensures cookies are included
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response.data; // Return the response data
+  } catch (error) {
+    console.error(
+      "Error creating post:",
+      error.response?.data || error.message
+    );
+    throw new Error(error.response?.data?.message || "Failed to create post");
   }
-
-  return response.json();
 };
 
 export default {
