@@ -28,9 +28,9 @@ export const createPost = async (postData) => {
   console.log("Creating post with BASE_URL:", BASE_URL);
   const response = await fetch(`${BASE_URL}/blog-posts`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    // headers: {
+    //   "Content-Type": "application/json",
+    // },
     withCredentials: true, // Ensures cookies are included
     body: JSON.stringify(postData),
   });
