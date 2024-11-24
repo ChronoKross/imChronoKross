@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import React from "react";
 import useAuth from "../context/useAuth";
 import {
@@ -21,12 +21,12 @@ function NavList() {
           color="white"
           className="p-1 font-medium"
         >
-          <Link
+          <NavLink
             to="/"
             className="flex items-center hover:text-red-800 transition-colors"
           >
             Home
-          </Link>
+          </NavLink>
         </Typography>
 
         {!user && (
@@ -36,12 +36,12 @@ function NavList() {
             color="white"
             className="p-1 font-medium"
           >
-            <Link
+            <NavLink
               to="/register"
               className="flex items-center hover:text-red-800 transition-colors"
             >
               Register
-            </Link>
+            </NavLink>
           </Typography>
         )}
 
@@ -52,12 +52,12 @@ function NavList() {
             color="white"
             className="p-1 font-medium"
           >
-            <Link
+            <NavLink
               to="/login"
               className="flex items-center hover:text-red-800 transition-colors"
             >
               Login
-            </Link>
+            </NavLink>
           </Typography>
         )}
       </ul>

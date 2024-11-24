@@ -1,60 +1,35 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { getPostById } from "../BlogAPI";
 import parse from "html-react-parser";
 
 const SinglePost = () => {
   const { id } = useParams(); // Get the post ID from the URL
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const response = await getPostById(id); // Fetch the post by ID
-        console.log("Full Post Response:", response);
-
-        if (response && response.data && response.data.data) {
-          console.log(
-            "Setting post with response.data.data:",
-            response.data.data
-          );
-          setPost(response.data.data);
-        } else if (response && response.data) {
-          console.log(
-            "Setting post directly with response.data:",
-            response.data
-          );
-          setPost(response.data);
-        } else {
-          console.log("Unexpected response structure");
-          setError("Unexpected response structure");
-        }
-      } catch (err) {
-        console.error("Error Fetching Post:", err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-        console.log("Loading set to false");
-      }
-    };
-
-    fetchPost();
-  }, [id]);
+  // Use React Query's `useQuery` to fetch the post
+  const {
+    data: post,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["post", id], // Unique key for caching
+    queryFn: () => getPostById(id), // Fetching function
+    enabled: !!id, // Prevent query from running if `id` is falsy
+    select: (response) => response?.data?.data || response?.data, // Extract the post data
+    retry: 1, // Retry once on failure
+  });
 
   // Loading and error handling
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   // Ensure that the post and its attributes exist before rendering
-  if (!post || !post.attributes) {
-    console.log("Post or attributes not available:", post);
+  if (!post?.attributes) {
     return <p>No post available</p>;
   }
 
   // Parse the HTML content into React elements
-  const parsedContent = parse(post.attributes.content);
+  const parsedContent = parse(post.attributes.content || "");
 
   // Render the post content with the embedded HTML and Tailwind styling
   return (

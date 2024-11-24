@@ -4,13 +4,6 @@
 
 /* index.css */
 /* Styling for TipTop Canvas ONLY */
-.ProseMirror h1 {
-  @apply text-3xl font-bold mb-4;
-}
-
-.ProseMirror h2 {
-  @apply text-2xl font-semibold mb-3;
-}
 
 .ProseMirror ul {
   @apply list-disc list-outside ml-6 mb-4;
