@@ -4,42 +4,52 @@ import propTypes from "prop-types";
 
 const AuthContext = createContext();
 
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null); // Manage user state
-  const [isLoading, setIsLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track error state
+const API_BASE_URL =
+  window.location.hostname === "localhost"
+    ? "http://localhost:1338/api"
+    : "https://api.imchronokross.com/api";
 
-  const API_BASE_URL =
-    window.location.hostname === "localhost"
-      ? "http://localhost:1338/api"
-      : "https://api.imchronokross.com/api";
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(() => {
+    // Retrieve user from localStorage on initial load
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const checkAuth = async () => {
+    const fetchAuthStatus = async () => {
       setIsLoading(true);
       try {
-        console.log(
-          `Checking authentication status at ${API_BASE_URL}/checkAuth`
-        );
         const response = await axios.get(`${API_BASE_URL}/checkAuth`, {
           withCredentials: true,
         });
-        setUser(response.data.user); // Set user if authenticated
-        setError(null); // Clear any existing errors
+        const authenticatedUser = response.data.user;
+
+        setUser(authenticatedUser); // Update state
+        localStorage.setItem("user", JSON.stringify(authenticatedUser)); // Save user to localStorage
+        setError(null);
       } catch (err) {
-        console.error("Error checking authentication status:", err.message);
-        setUser(null); // Clear user on failure
-        setError(err.message); // Set error message
+        console.error("Error checking authentication:", err.message);
+        setUser(null);
+        localStorage.removeItem("user"); // Clear user from localStorage on failure
+        setError(err.message);
       } finally {
-        setIsLoading(false); // Always stop loading
+        setIsLoading(false);
       }
     };
 
-    checkAuth(); // Call the function on component mount
-  }, [API_BASE_URL]);
+    fetchAuthStatus();
+  }, []);
+
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user"); // Clear user data on logout
+  };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, isLoading, error }}>
+    <AuthContext.Provider value={{ user, setUser, isLoading, error, logout }}>
       {children}
     </AuthContext.Provider>
   );
