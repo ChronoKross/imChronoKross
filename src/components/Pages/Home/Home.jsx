@@ -14,7 +14,13 @@ export default function Home() {
   if (user) console.log(user);
   return (
     <main>
-      <Write />
+      {user ? (
+        <Write />
+      ) : (
+        <p className="text-center mt-4 text-red-500">
+          You must be logged in to create a post.
+        </p>
+      )}
       <Posts />
       <HeroHighlight containerClassName="custom-container-class pt-32">
         <p className="mt-4 text-xl text-center">
