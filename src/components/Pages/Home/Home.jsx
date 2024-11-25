@@ -14,14 +14,6 @@ export default function Home() {
   if (user) console.log(user);
   return (
     <main>
-      {user ? (
-        <Write />
-      ) : (
-        <p className="text-center mt-4 text-red-500">
-          You must be logged in to create a post.
-        </p>
-      )}
-      <Posts />
       <HeroHighlight containerClassName="custom-container-class pt-32">
         <p className="mt-4 text-xl text-center">
           <Highlight className="text-indigo-500">Experience</Highlight> the best
@@ -30,6 +22,14 @@ export default function Home() {
           us.
         </p>
       </HeroHighlight>
+      {user ? (
+        <Write />
+      ) : (
+        <p className="text-center font-medium mt-4 mb-4 text-red-800">
+          You must be logged in to create a post.
+        </p>
+      )}
+      <Posts />
     </main>
   );
 }
