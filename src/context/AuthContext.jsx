@@ -1,48 +1,48 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext } from "react";
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import propTypes from "prop-types";
 
 const AuthContext = createContext();
 
+const fetchAuthStatus = async ({ queryKey }) => {
+  const [_, API_BASE_URL] = queryKey; // Extract API_BASE_URL from queryKey
+  console.log("Checking your authentication status. Hang tight...");
+  const response = await axios.get(`${API_BASE_URL}/api/checkAuth`, {
+    withCredentials: true,
+  });
+  return response.data.user;
+};
+
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL ||
+    (window.location.hostname === "localhost"
+      ? "http://localhost:1338"
+      : `https://${window.location.hostname}/api`);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        console.log("Checking authentication status...");
-        const response = await axios.get(
-          "http://localhost:1338/api/checkAuth",
-          {
-            withCredentials: true,
-          }
-        );
-        if (response.status === 200) {
-          console.log("User authenticated successfully:", response.data.user);
-          setUser(response.data.user);
-          localStorage.setItem("authenticated", true); // Store user in local storage
-        } else {
-          console.log("User is not authenticated.");
-          localStorage.setItem("authenticated", false);
-          setUser(null);
-        }
-      } catch (error) {
-        console.error("Authentication check failed:", error);
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    checkAuth();
-  }, []);
+  const {
+    data: user,
+    isLoading,
+    isError,
+    refetch,
+  } = useQuery({
+    queryKey: ["authStatus", API_BASE_URL],
+    queryFn: fetchAuthStatus,
+    retry: 1, // Retry once on failure
+    staleTime: 0, // Always fetch fresh data
+  });
 
-  // if (loading) {
-  //   return <div>Loading...</div>; // Display a loading screen until the check completes
-  // }
+  if (isLoading) {
+    console.log("Checking your authentication status...");
+  }
+
+  if (isError) {
+    console.error("Error occurred while verifying authentication status.");
+  }
 
   return (
-    <AuthContext.Provider value={{ user, setUser }}>
+    <AuthContext.Provider value={{ user, refetch }}>
       {children}
     </AuthContext.Provider>
   );
