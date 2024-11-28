@@ -6,6 +6,7 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext"; // Import AuthContext
+import { IconBrandGoogle } from "@tabler/icons-react";
 
 export default function LoginForm() {
   const navigate = useNavigate(); // Initialize navigate hook for redirection
@@ -90,8 +91,19 @@ export default function LoginForm() {
         error.response?.data?.message ||
           "Login failed. Please check your credentials."
       );
+
       setIsLoading(false); // Stop loading
     }
+  };
+
+  const googleOAuthLogin = () => {
+    // Redirect to Google OAuth consent page
+    window.location.href =
+      "https://accounts.google.com/o/oauth2/v2/auth?" +
+      "client_id=178325313232-5jib912b13d4iflrpo5m22dl6a3qq668.apps.googleusercontent.com" +
+      "&redirect_uri=https://www.imchronokross.com/callback" + // match this with your redirect URI
+      "&response_type=code" +
+      "&scope=openid profile email"; // Scopes you need (email and profile)
   };
 
   return (
@@ -145,6 +157,14 @@ export default function LoginForm() {
             </span>
           </div>
         </LabelInputContainer>
+        <IconBrandGoogle
+          onClick={googleOAuthLogin}
+          className="h-4 w-4 text-neutral-800 dark:text-neutral-300"
+        />
+        <span className="text-neutral-700 dark:text-neutral-300 text-sm">
+          Google
+        </span>
+        <BottomGradient />
 
         <button
           className="mt-8 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset]"
@@ -157,6 +177,15 @@ export default function LoginForm() {
     </div>
   );
 }
+
+const BottomGradient = () => {
+  return (
+    <>
+      <span className="group-hover/btn:opacity-100 block transition duration-500 opacity-0 absolute h-px w-full -bottom-px inset-x-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent" />
+      <span className="group-hover/btn:opacity-100 blur-sm block transition duration-500 opacity-0 absolute h-px w-1/2 mx-auto -bottom-px inset-x-10 bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+    </>
+  );
+};
 
 // LabelInputContainer component for consistency
 const LabelInputContainer = ({ children, className }) => {
