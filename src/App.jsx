@@ -7,6 +7,7 @@ import Home from "./components/Pages/Home/Home";
 import LoginForm from "./components/Pages/Login/Login";
 import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
+import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -16,6 +17,8 @@ function App() {
       <div className=" ">
         <Navbar />
         <Routes>
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />

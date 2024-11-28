@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import propTypes from "prop-types";
 
+// Create the AuthContext
 const AuthContext = createContext();
 
 const API_BASE_URL =
@@ -43,9 +44,14 @@ const AuthProvider = ({ children }) => {
     fetchAuthStatus();
   }, []);
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user"); // Clear user data on logout
+  const logout = async () => {
+    try {
+      await axios.post(`${API_BASE_URL}/logout`, {}, { withCredentials: true }); // Notify backend to clear the cookie
+      setUser(null);
+      localStorage.removeItem("user"); // Clear user data on logout
+    } catch (err) {
+      console.error("Error during logout:", err.message);
+    }
   };
 
   return (

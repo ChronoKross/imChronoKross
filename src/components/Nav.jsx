@@ -10,7 +10,7 @@ import {
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
 function NavList() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth(); // Access user and logout function from context
 
   return (
     <>
@@ -58,6 +58,35 @@ function NavList() {
             >
               Login
             </NavLink>
+          </Typography>
+        )}
+        <Typography
+          as="li"
+          variant="small"
+          color="white"
+          className="p-1 font-medium"
+        >
+          <NavLink
+            to="/privacy"
+            className="flex items-center hover:text-red-800 transition-colors"
+          >
+            Privacy & Terms
+          </NavLink>
+        </Typography>
+
+        {user && (
+          <Typography
+            as="li"
+            variant="small"
+            color="white"
+            className="p-1 font-medium"
+          >
+            <button
+              onClick={logout} // Call logout function on click
+              className="flex items-center hover:text-red-800 transition-colors"
+            >
+              Logout
+            </button>
           </Typography>
         )}
       </ul>
