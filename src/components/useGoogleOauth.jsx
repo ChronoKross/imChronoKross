@@ -11,9 +11,6 @@ const useGoogleOauth = () => {
   const backendURL = isLocalhost
     ? "http://localhost:1337/api/connect/google/callback" // Localhost callback
     : "https://api.imchronokross.com/api/connect/google/callback"; // Production callback
-  const frontendRedirectURL = isLocalhost
-    ? "http://localhost:5173/callback" // Localhost frontend callback
-    : "https://www.imchronokross.com/callback"; // Production frontend callback
 
   // Extract the 'code' from the query parameters in the URL
   const queryParams = new URLSearchParams(location.search);

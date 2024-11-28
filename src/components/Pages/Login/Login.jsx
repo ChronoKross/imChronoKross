@@ -101,7 +101,7 @@ export default function LoginForm() {
     window.location.href =
       "https://accounts.google.com/o/oauth2/v2/auth?" +
       "client_id=178325313232-5jib912b13d4iflrpo5m22dl6a3qq668.apps.googleusercontent.com" +
-      "&redirect_uri=https://www.imchronokross.com/callback" + // match this with your redirect URI
+      "&redirect_uri=http://localhost:5173/callback" + // match this with your redirect URI
       "&response_type=code" +
       "&scope=openid profile email"; // Scopes you need (email and profile)
   };
