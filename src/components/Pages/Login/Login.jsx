@@ -97,13 +97,16 @@ export default function LoginForm() {
   };
 
   const googleOAuthLogin = () => {
-    // Redirect to Google OAuth consent page
+    const clientId =
+      "178325313232-5jib912b13d4iflrpo5m22dl6a3qq668.apps.googleusercontent.com";
+    const redirectUri = "http://localhost:5173/callback";
+    // Redirect to Google's OAuth 2.0 endpoint
     window.location.href =
-      "https://accounts.google.com/o/oauth2/v2/auth?" +
-      "client_id=178325313232-5jib912b13d4iflrpo5m22dl6a3qq668.apps.googleusercontent.com" +
-      "&redirect_uri=http://localhost:5173/callback" + // match this with your redirect URI
-      "&response_type=code" +
-      "&scope=openid profile email"; // Scopes you need (email and profile)
+      `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${clientId}` +
+      `&redirect_uri=${redirectUri}` +
+      `&response_type=code` +
+      `&scope=openid profile email`; // Scopes you need
   };
 
   return (
