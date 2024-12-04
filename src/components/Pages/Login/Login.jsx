@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext"; // Import AuthContext
-import { IconBrandGoogle } from "@tabler/icons-react";
+import GoogleOAuth from "../../hooks/Google/GoogleOAuth";
 
 export default function LoginForm() {
   const navigate = useNavigate(); // Initialize navigate hook for redirection
@@ -96,19 +96,6 @@ export default function LoginForm() {
     }
   };
 
-  const googleOAuthLogin = () => {
-    const clientId =
-      "178325313232-5jib912b13d4iflrpo5m22dl6a3qq668.apps.googleusercontent.com";
-    const redirectUri = "http://localhost:5173/callback";
-    // Redirect to Google's OAuth 2.0 endpoint
-    window.location.href =
-      `https://accounts.google.com/o/oauth2/v2/auth?` +
-      `client_id=${clientId}` +
-      `&redirect_uri=${redirectUri}` +
-      `&response_type=code` +
-      `&scope=openid profile email`; // Scopes you need
-  };
-
   return (
     <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 lg:mt-16 md:p-8 shadow-input dark:bg-black">
       <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
@@ -160,13 +147,8 @@ export default function LoginForm() {
             </span>
           </div>
         </LabelInputContainer>
-        <IconBrandGoogle
-          onClick={googleOAuthLogin}
-          className="h-4 w-4 text-neutral-800 dark:text-neutral-300"
-        />
-        <span className="text-neutral-700 dark:text-neutral-300 text-sm">
-          Google
-        </span>
+        <GoogleOAuth />
+        {/* Google OAuth Button */}
         <BottomGradient />
 
         <button

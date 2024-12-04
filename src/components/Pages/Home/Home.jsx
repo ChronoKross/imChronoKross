@@ -22,6 +22,7 @@ export default function Home() {
           us.
         </p>
       </HeroHighlight>
+
       {user ? (
         <Write />
       ) : (
