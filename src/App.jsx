@@ -44,9 +44,8 @@ function App() {
           localStorage.setItem("accessToken", accessToken || "");
 
           // Clean up the URL
-          const newUrl = window.location.origin + window.location.pathname;
+          // const newUrl = window.location.origin + window.location.pathname;
           console.log("Cleaning up URL...");
-          window.history.replaceState(null, "", newUrl);
         } catch (error) {
           console.error("Error sending tokens to Strapi:", error);
         }
@@ -72,6 +71,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
+          <Route path="/auth/google" element={<Home />} />
         </Routes>
       </div>
     </Router>
