@@ -71,7 +71,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route path="/auth/google" element={<Home />} />
+          <Route path="/auth/google/callback" element={<Home />} />
         </Routes>
       </div>
     </Router>
