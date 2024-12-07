@@ -6,7 +6,7 @@ import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import RegisterForm from "./components/pages/register/RegisterForm";
 import Home from "./components/pages/Home/Home";
-import LoginForm from "./components/pages/Login/Login";
+import LoginForm from "./components/pages/Login/LoginForm";
 import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
@@ -15,47 +15,22 @@ function App() {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    const processCallback = async () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const idToken = urlParams.get("id_token");
-      const accessToken = urlParams.get("access_token");
-
-      if (idToken || accessToken) {
-        console.log("ID Token:", idToken);
-        console.log("Access Token:", accessToken);
-
-        // Send the tokens to Strapi for processing using GET request
-        try {
-          const response = await axios.get(
-            "http://localhost:1338/api/connect/google/callback",
-            {
-              params: {
-                id_token: idToken,
-                access_token: accessToken,
-              },
-            }
-          );
-
-          // Handle the response, e.g., save JWT or user data
-          console.log("Strapi response:", response.data);
-
-          // Optionally, save tokens to localStorage or set user session
-          localStorage.setItem("idToken", idToken || "");
-          localStorage.setItem("accessToken", accessToken || "");
-
-          // Clean up the URL
-          // const newUrl = window.location.origin + window.location.pathname;
-          console.log("Cleaning up URL...");
-        } catch (error) {
-          console.error("Error sending tokens to Strapi:", error);
-        }
-      } else {
-        console.log("No tokens found in the URL.");
+    const checkAuth = async () => {
+      try {
+        // Optionally fetch the logged-in user from your Strapi custom endpoint
+        const response = await axios.get(
+          "http://localhost:1338/api/checkAuth",
+          {
+            withCredentials: true, // Include session cookies
+          }
+        );
+        console.log("Authenticated user:", response.data);
+      } catch (error) {
+        console.error("Error checking authentication:", error);
       }
     };
 
-    // Run the callback processing logic once
-    processCallback();
+    checkAuth();
   }, []);
 
   console.log("User from context in App component:", user);
