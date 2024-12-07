@@ -14,24 +14,24 @@ import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 function App() {
   const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        // Optionally fetch the logged-in user from your Strapi custom endpoint
-        const response = await axios.get(
-          "http://localhost:1338/api/checkAuth",
-          {
-            withCredentials: true, // Include session cookies
-          }
-        );
-        console.log("Authenticated user:", response.data);
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const checkAuth = async () => {
+  //     try {
+  //       // Optionally fetch the logged-in user from your Strapi custom endpoint
+  //       const response = await axios.get(
+  //         "http://localhost:1338/api/checkAuth",
+  //         {
+  //           withCredentials: true, // Include session cookies
+  //         }
+  //       );
+  //       console.log("Authenticated user:", response.data);
+  //     } catch (error) {
+  //       console.error("Error checking authentication:", error);
+  //     }
+  //   };
 
-    checkAuth();
-  }, []);
+  //   checkAuth();
+  // }, []);
 
   console.log("User from context in App component:", user);
 
