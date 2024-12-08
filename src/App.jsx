@@ -11,7 +11,7 @@ import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 
 function App() {
   const { user } = useContext(AuthContext);
-
+  //
   // useEffect(() => {
   //   const checkAuth = async () => {
   //     try {
