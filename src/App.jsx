@@ -8,7 +8,6 @@ import LoginForm from "./components/pages/Login/LoginForm";
 import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
-import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -45,10 +44,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route
-            path="/connect/:provider/redirect"
-            element={<GoogleOAuthRedirect />}
-          />
+          <Route path="/connect/${provider}/redirect" element={<Home />} />
         </Routes>
       </div>
     </Router>
