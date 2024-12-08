@@ -6,7 +6,7 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext"; // Import AuthContext
-import GoogleOAuth from "../../hooks/Google/GoogleOAuth";
+import { GoogleOAuthButton } from "../../auth/index";
 
 export default function LoginForm() {
   const navigate = useNavigate(); // Initialize navigate hook for redirection
@@ -147,7 +147,7 @@ export default function LoginForm() {
             </span>
           </div>
         </LabelInputContainer>
-        <GoogleOAuth />
+        <GoogleOAuthButton />
         {/* Google OAuth Button */}
         <BottomGradient />
 

@@ -1,5 +1,5 @@
 import { IconBrandGoogle } from "@tabler/icons-react";
-import useGoogleAuth from "./UseGoogleAuth";
+import useGoogleAuth from "./useGoogleOAuth";
 
 const GoogleOAuth = () => {
   const { login: googleOAuthLogin } = useGoogleAuth();

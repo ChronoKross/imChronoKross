@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import axios from "axios";
 import Navbar from "./components/Nav";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
@@ -46,7 +44,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route path="/auth/google/callback" element={<Home />} />
+          <Route path="/connect/${provider}/redirect" element={<Home />} />
         </Routes>
       </div>
     </Router>
