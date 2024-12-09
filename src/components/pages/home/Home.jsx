@@ -7,7 +7,7 @@ import Write from "../../features/blog/components/Write";
 import Posts from "../../features/blog/pages/Posts";
 
 // const url = "https://www.youtube.com/watch?v=2QTDcffpunY";
-
+//
 export default function Home() {
   const { user, setUser } = useAuth();
   // Get user from AuthContext
