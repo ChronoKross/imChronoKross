@@ -44,7 +44,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route path="/connect/:provider/redirect" element={<Home />} />
+          <Route path="/api/connect/:provider/callback" element={<Home />} />
         </Routes>
       </div>
     </Router>
