@@ -8,6 +8,8 @@ import LoginForm from "./components/pages/Login/LoginForm.jsx";
 import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
+import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
+// import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
 //
 function App() {
   const { user } = useContext(AuthContext);
@@ -44,7 +46,10 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route path="/api/connect/:provider/callback" element={<Home />} />
+          <Route
+            path="/connect/google/redirect"
+            element={<GoogleOAuthRedirect />}
+          />
         </Routes>
       </div>
     </Router>
