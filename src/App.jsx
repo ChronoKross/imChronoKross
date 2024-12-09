@@ -4,7 +4,7 @@ import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
 import RegisterForm from "./components/Pages/Register/RegisterForm.jsx";
 import Home from "./components/Pages/home/Home.js";
-import LoginForm from "./components/Pages/login/LoginForm.js";
+import LoginForm from "./components/Pages/Login/LoginForm.js";
 import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
