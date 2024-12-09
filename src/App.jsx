@@ -8,7 +8,7 @@ import LoginForm from "./components/Pages/login/LoginForm.js";
 import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
-
+//
 function App() {
   const { user } = useContext(AuthContext);
   //
