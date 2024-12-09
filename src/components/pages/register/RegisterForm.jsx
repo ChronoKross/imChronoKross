@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import axios from "axios";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/context/AuthContext"; // Import AuthContext to update the user
-
+//
 export default function RegisterForm() {
   const { setUser } = useContext(AuthContext); // Destructure setUser from AuthContext
 

@@ -2,7 +2,7 @@ import Navbar from "./components/Nav";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import { useContext } from "react";
-import RegisterForm from "./components/Pages/register/RegisterForm.js";
+import RegisterForm from "./components/Pages/Register/RegisterForm.jsx";
 import Home from "./components/Pages/home/Home.js";
 import LoginForm from "./components/Pages/login/LoginForm.js";
 import Posts from "./components/features/blog/pages/Posts";
