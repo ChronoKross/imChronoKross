@@ -64,8 +64,8 @@ function App() {
             path="/connect/google/redirect/*"
             element={<GoogleOAuthRedirect />}
           />
-          {/* {"Fall Back Route"}
-          <Route path="*" element={<GoogleOAuthRedirect />} /> */}
+          {"Fall Back Route"}
+          <Route path="*" element={<GoogleOAuthRedirect />} />
         </Routes>
       </div>
     </Router>
