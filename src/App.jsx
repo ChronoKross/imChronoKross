@@ -62,10 +62,10 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          {/* <Route
+          <Route
             path="/connect/google/redirect/*"
             element={<GoogleOAuthRedirect />}
-          /> */}
+          />
           <Route path="*" element={<GoogleOAuthRedirect />} />
 
           {/* <Route path="*" element={<GoogleOAuthRedirect />} /> */}
