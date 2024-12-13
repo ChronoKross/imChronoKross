@@ -47,13 +47,10 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route
-            path="/api/connect/google/redirect"
-            element={<GoogleOAuthRedirect />}
-          />
+
           {/* Alternatively, add both routes to be safe */}
           <Route
-            path="/connect/google/redirect"
+            path="/connect/google/redirect/*"
             element={<GoogleOAuthRedirect />}
           />
           <Route
