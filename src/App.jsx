@@ -47,9 +47,9 @@ function App() {
   return (
     <Router>
       <div>
+        <DebugLogger />
         <Navbar />
         <Routes>
-          <DebugLogger />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterForm />} />
