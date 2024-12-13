@@ -9,8 +9,8 @@ import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+// import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
+//
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -35,19 +35,10 @@ function App() {
   // }, []);
 
   console.log("User from context in App component:", user);
-  const DebugLogger = () => {
-    const location = useLocation();
-    useEffect(() => {
-      console.log("Current Path:", location.pathname);
-      console.log("Full Location:", location);
-    }, [location]);
-    return null;
-  };
 
   return (
     <Router>
       <div>
-        <DebugLogger />
         <Navbar />
         <Routes>
           <Route path="/privacy" element={<PrivacyPolicy />} />
@@ -56,21 +47,7 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-
-          {/* Alternatively, add both routes to be safe */}
-          <Route
-            path="/connect/google/redirect/*"
-            element={<GoogleOAuthRedirect />}
-          />
-          <Route
-            path="*"
-            element={
-              <div>
-                <h1>Unmatched Route</h1>
-                <p>Path: {window.location.pathname}</p>
-              </div>
-            }
-          />
+          <Route path="*" element={<GoogleOAuthRedirect />} />
         </Routes>
       </div>
     </Router>
