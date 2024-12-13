@@ -62,13 +62,16 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route
+          <Route path="*" element={<GoogleOAuthRedirect />} />
+        </Routes>
+
+        {/* SOME REASON THIS DOES NOT WORK {  <Route
             path="/connect/google/redirect/*"
             element={<GoogleOAuthRedirect />}
           />
           {"Fall Back Route"}
           <Route path="*" element={<GoogleOAuthRedirect />} />
-        </Routes>
+        </Routes>} */}
       </div>
     </Router>
   );
