@@ -14,8 +14,10 @@ import { useEffect } from "react";
 //
 
 function App() {
+  //checks user against server to make sure user is properly authenticated
   const { user } = useContext(AuthContext);
-  //
+  ////////////////////////////////////
+
   // useEffect(() => {
   //   const checkAuth = async () => {
   //     try {
@@ -60,12 +62,9 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route
-            path="/connect/google/redirect/*"
-            element={<GoogleOAuthRedirect />}
-          />
-          {"Fall Back Route"}
           <Route path="*" element={<GoogleOAuthRedirect />} />
+          {/* {"Fall Back Route"}
+          <Route path="*" element={<GoogleOAuthRedirect />} /> */}
         </Routes>
       </div>
     </Router>
