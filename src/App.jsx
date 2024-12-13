@@ -9,8 +9,8 @@ import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
-// import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
-//
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -35,12 +35,21 @@ function App() {
   // }, []);
 
   console.log("User from context in App component:", user);
+  const DebugLogger = () => {
+    const location = useLocation();
+    useEffect(() => {
+      console.log("Current Path:", location.pathname);
+      console.log("Full Location:", location);
+    }, [location]);
+    return null;
+  };
 
   return (
     <Router>
       <div>
         <Navbar />
         <Routes>
+          <DebugLogger />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterForm />} />
