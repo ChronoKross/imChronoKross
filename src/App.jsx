@@ -11,6 +11,7 @@ import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
 // import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
 //
+
 function App() {
   const { user } = useContext(AuthContext);
   //
@@ -54,6 +55,15 @@ function App() {
           <Route
             path="/connect/google/redirect"
             element={<GoogleOAuthRedirect />}
+          />
+          <Route
+            path="*"
+            element={
+              <div>
+                <h1>Unmatched Route</h1>
+                <p>Path: {window.location.pathname}</p>
+              </div>
+            }
           />
         </Routes>
       </div>
