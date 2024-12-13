@@ -9,6 +9,7 @@ import Posts from "./components/features/blog/pages/Posts";
 import SinglePost from "./components/features/blog/pages/SinglePost";
 import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
+import { useEffect } from "react";
 // import GoogleOAuthRedirect from "./components/auth/GoogleOAuth/GoogleOAuthRedirect.jsx";
 //
 
@@ -34,6 +35,18 @@ function App() {
   //   checkAuth();
   // }, []);
 
+  useEffect(() => {
+    const getQueryParams = () => {
+      const urlParams = new URLSearchParams(location.search);
+      const idToken = urlParams.get("id_token");
+      const accessToken = urlParams.get("access_token");
+      console.log("Google OAuth Redirect Params:");
+      console.log("ID Token:", idToken);
+      console.log("Access Token:", accessToken);
+    };
+
+    getQueryParams();
+  }, []);
   console.log("User from context in App component:", user);
 
   return (
@@ -47,7 +60,12 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route path="*" element={<GoogleOAuthRedirect />} />
+          <Route
+            path="/connect/google/redirect/*"
+            element={<GoogleOAuthRedirect />}
+          />
+          {/* {"Fall Back Route"}
+          <Route path="*" element={<GoogleOAuthRedirect />} /> */}
         </Routes>
       </div>
     </Router>
