@@ -56,14 +56,16 @@ function App() {
       <div>
         <Navbar />
         <Routes>
+          <Route
+            path="/connect/google/redirect/*"
+            element={<GoogleOAuthRedirect />}
+          />
           <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="/blog" element={<Posts />} />
           <Route path="/blog/:id" element={<SinglePost />} />
-          <Route path="*" element={<GoogleOAuthRedirect />} />
-          <Route path="*" element={<GoogleOAuthRedirect />} />
 
           {/* <Route path="*" element={<GoogleOAuthRedirect />} /> */}
         </Routes>
