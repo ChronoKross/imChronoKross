@@ -16,10 +16,8 @@ export default function Home() {
     <main>
       <HeroHighlight containerClassName="custom-container-class pt-32">
         <p className="mt-4 text-xl text-center">
-          <Highlight className="text-indigo-500">Experience</Highlight> the best
-          features and{" "}
-          <Highlight className="text-purple-500">technologies</Highlight> with
-          us.
+           <Highlight className="text-indigo-500">Go away.</Highlight> please..{" "}
+          <Highlight className="text-purple-500">the site is DOWN.</Highlight> (it's a side side side project). May be a while before it is up 😂 😂 
         </p>
       </HeroHighlight>
 
